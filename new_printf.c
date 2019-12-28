@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:38:57 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/28 01:44:07 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/28 18:42:37 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_conversion	get_conversion(const char *str, t_conversion conv, va_list ap)
 	if (str[i] >= '1' && str[i] <= '9')
 	{
 		conv.width = ft_atoi(&str[i]);
-		while (str[i] >= '1' && str[i] <= '9')
+		while (str[i] >= '0' && str[i] <= '9')
 			i++;
 	}
 	if (str[i] == '*')
@@ -46,7 +46,7 @@ t_conversion	get_conversion(const char *str, t_conversion conv, va_list ap)
 		if (str[i] >= '1' && str[i] <= '9')
 		{
 			conv.precision = ft_atoi(&str[i]);
-			while (str[i] >= '1' && str[i] <= '9')
+			while (str[i] >= '0' && str[i] <= '9')
 				i++;
 		}
 		if (str[i] == '*')
@@ -59,52 +59,28 @@ t_conversion	get_conversion(const char *str, t_conversion conv, va_list ap)
 	return conv;
 }
 
-void		display_width(t_conversion conv, va_list ap)
+void		display_width(t_conversion conv, char *s)
 {
 	int i;
 	char sp = ' ';
 
+	int add_z = conv.width - ft_strlen(s);
 	i = 0;
-	while (conv.width > 0)
+	while (add_z > 0)
 	{
 		write(1, &sp, 1);
-		conv.width --;
+		add_z --;
 	}
-// pour les num =
-// num = va_arg(ap, int);
-// lennum = ft_strlen(num);
-// if (conv.width > lennum)
-// {
-//		add_z = conv.width - lennum;
-//		while (add_z > 0)
-//			write(1, '0', add_z);
-// }
 }
 
-int		ft_strleni(int n)
+int		display_precision(t_conversion conv, char *s)
 {
 	int i;
-
-	i = 0;
-	while (ft_itoa(n)[i])
-		i++;
-	return (i);
-}
-
-int		display_precision(t_conversion conv, va_list ap)
-{
-	int i;
-	int lennum;
-	int num;
 	int add_z;
-	char z = 'z';
+	char z = '0';
 
-	num = va_arg(ap, int);
 	i = 0 ;
-	if (!(ft_isdigit(num)))
-		return (1);
-	lennum = ft_strleni(num);
-	add_z = conv.precision - lennum;
+	add_z = conv.precision - ft_strlen(s);
 	while (conv.precision > 0)
 	{
 		write(1, &z, add_z);
@@ -141,9 +117,6 @@ char	display_str(const char *format, ...)
 		else
 		{
 			conv = get_conversion(&format[i], conv, ap);
-//			apply_flags(&format[i], conv, ap);
-			display_width(conv, ap);
-//			display_precision(conv, ap);
 			apply_type(conv, ap);
 			while (format[i] != conv.type)
 				i++;
@@ -166,11 +139,12 @@ int		main(void)
 	display_str("et avec un nombre d = %d !!\n", 45);
 	display_str("puis i = %i ?!\n", 95);
 	display_str("puis percent = %% ?!\n");
-	display_str("puis hexa_minus = %x hophop\n", 'j');
-	display_str("puis hexa_maj = %X ?!\n", 'B');
-	display_str("adresse de l'arg  = %p okkkkk\n", &str);
+	display_str("puis hexa_minus = %10x hophop\n", 'j');
+	display_str("puis hexa_maj = %-15X ?!\n", 'B');
+	display_str("adresse de l'arg  = %20p okkkkk\n", &str);
 	display_str("puis u = %u ?!\n", 95);
-	display_str("\n\n--%8c--\n",'z');
+	display_str("\n\n--%6c--\n",'z');
+	display_str("\n\n--%2c--\n", 8);
 	dprintf(1,"--%.5d--\n", 22);
 	dprintf(1,"--%5.3d--\n", 32);
 	dprintf(1,"--%0d--\n", 42);

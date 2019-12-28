@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 16:58:16 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/27 21:54:53 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/28 18:41:10 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,16 @@ typedef struct	s_conversion
 	char	type;
 }				t_conversion;
 
-void	ft_type_c(va_list ap);
-void	ft_type_s(va_list ap);
+void	ft_type_c(va_list ap, t_conversion conv);
+void	ft_type_s(va_list ap, t_conversion conv);
 void	ft_type_percent(va_list ap);
-void	ft_type_d(va_list ap);
-void	ft_type_i(va_list ap);
-void	ft_type_u(va_list ap);
-void	ft_type_x(va_list ap);
-void	ft_type_X(va_list ap);
-void	ft_type_p(va_list ap);
+void	ft_type_d(va_list ap, t_conversion conv);
+void	ft_type_i(va_list ap, t_conversion conv);
+void	ft_type_u(va_list ap, t_conversion conv);
+void	ft_type_x(va_list ap, t_conversion conv);
+void	ft_type_X(va_list ap, t_conversion conv);
+void	ft_type_p(va_list ap, t_conversion conv);
 void	apply_type(t_conversion conv, va_list ap);
 t_conversion	get_conversion(const char *str, t_conversion conv, va_list ap);
+void		display_width(t_conversion conv, char *s);
 #endif

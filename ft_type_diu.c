@@ -6,32 +6,66 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 21:43:20 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/27 21:45:20 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/28 17:40:57 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	ft_type_d(va_list ap)
+void	ft_type_d(va_list ap, t_conversion conv)
 {
-	int d;
+	int		d;
+	char	*s;
 
 	d = va_arg(ap, int);
-	write(1, ft_itoa(d), ft_strlen(ft_itoa(d)));
+	s = ft_itoa(d);
+	if (conv.flag == '-')
+	{
+		write(1, s, ft_strlen(s));
+		display_width(conv, s);
+	}
+	else
+	{
+		display_width(conv, s);
+		write(1, s, ft_strlen(s));
+	}
 }
 
-void	ft_type_i(va_list ap)
+void	ft_type_i(va_list ap, t_conversion conv)
 {
-	int i;
+	int		i;
+	char	*s;
 
 	i = va_arg(ap, int);
-	write(1, ft_itoa(i), ft_strlen(ft_itoa(i)));
+	s = ft_itoa(i);
+	if (conv.flag == '-')
+	{
+		write(1, s, ft_strlen(s));
+		display_width(conv, s);
+	}
+	else
+	{
+		display_width(conv, s);
+		write(1, s, ft_strlen(s));
+	}
 }
 
-void	ft_type_u(va_list ap)
+void	ft_type_u(va_list ap, t_conversion conv)
 {
 	unsigned int u;
+	char *s;
 
 	u = va_arg(ap, unsigned int);
-	write(1, ft_itoa(u), ft_strlen(ft_itoa(u)));
+	s = ft_itoa(u);
+
+	if (conv.flag == '-')
+	{
+		write(1, s, ft_strlen(s));
+		display_width(conv, s);
+	}
+	else
+	{
+		display_width(conv, s);
+		write(1, s, ft_strlen(s));
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:38:57 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/28 18:42:37 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/28 21:26:57 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,29 @@ void		display_width(t_conversion conv, char *s)
 	int i;
 	char sp = ' ';
 
+	int add_sp = conv.width - ft_strlen(s);
+	i = 0;
+	while (add_sp > 0)
+	{
+		write(1, &sp, 1);
+		add_sp --;
+	}
+}
+
+void	display_width_z(t_conversion conv, char *s)
+{
+	int i;
+	char z = '0';
+
 	int add_z = conv.width - ft_strlen(s);
 	i = 0;
 	while (add_z > 0)
 	{
-		write(1, &sp, 1);
+		write(1, &z, 1);
 		add_z --;
 	}
 }
+
 
 int		display_precision(t_conversion conv, char *s)
 {
@@ -133,9 +148,9 @@ int		main(void)
 
 	c = 'h';
 	str = "hello le test";
-	display_str("\ntest printf ==  %-*.46c helptest\n", 5, c);  //plante si je mets un \n
-	display_str("ok ok test %-*.46c over\n", 3, c);  //plante si je mets un \n
-	display_str("on teste maintenant avec str = %s, voila\n", str);
+	display_str("\ntest printf ==  %-*.46c helptest\n", 5, c);
+	display_str("ok ok test %-*.46c over\n", 3, c);
+	display_str("on teste maintenant avec str = %30s, voila\n", str);
 	display_str("et avec un nombre d = %d !!\n", 45);
 	display_str("puis i = %i ?!\n", 95);
 	display_str("puis percent = %% ?!\n");
@@ -143,10 +158,10 @@ int		main(void)
 	display_str("puis hexa_maj = %-15X ?!\n", 'B');
 	display_str("adresse de l'arg  = %20p okkkkk\n", &str);
 	display_str("puis u = %u ?!\n", 95);
-	display_str("\n\n--%6c--\n",'z');
-	display_str("\n\n--%2c--\n", 8);
-	dprintf(1,"--%.5d--\n", 22);
-	dprintf(1,"--%5.3d--\n", 32);
+	display_str("\n\n--%*c...\n", 15, 'z');
+	display_str("\n\n--%-*d...\n", 6, 8);
+	display_str("--%05d--\n", 22); // res = --   22-994770792-- (check apply_z)
+	dprintf(1,"--%0.2d--\n", 32);
 	dprintf(1,"--%0d--\n", 42);
 	display_str("--%5d--\n", 52);
 	dprintf(1,"--%-.5d--\n", 62);

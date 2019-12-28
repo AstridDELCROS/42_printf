@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_type_diu.c                                      :+:      :+:    :+:   */
+/*   ft_apply_zero.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/27 21:43:20 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/28 21:26:49 by adelcros         ###   ########.fr       */
+/*   Created: 2019/12/28 20:59:34 by adelcros          #+#    #+#             */
+/*   Updated: 2019/12/28 21:27:01 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	ft_type_d(va_list ap, t_conversion conv)
+void	ft_apply_zero(va_list ap, t_conversion conv)
 {
-	ft_apply_minus_di(ap, conv);
-	ft_apply_zero(ap, conv);
-}
+	int		d;
+	char *s;
 
-void	ft_type_i(va_list ap, t_conversion conv)
-{
-	ft_apply_minus_di(ap, conv);
-	ft_apply_zero(ap, conv);
-}
+	d = va_arg(ap, int);
+	s = ft_itoa(d);
 
-void	ft_type_u(va_list ap, t_conversion conv)
-{
-	ft_apply_minus_uxX(ap, conv);
+	if (conv.flag == '0')
+	{
+		display_width_z(conv, s);
+		write(1, s, ft_strlen(s));
+	}
 }
-

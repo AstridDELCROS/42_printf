@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 19:55:19 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/29 21:58:38 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/29 22:48:29 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,36 @@ void	ft_apply_width_c(va_list ap, t_conversion conv)
 void	ft_apply_width_s(va_list ap, t_conversion conv)
 {
 	char *str;
+	int diff;
+	char sp = ' ';
 
-	str = va_arg(ap, char*);
+	str = va_arg(ap, char *);
+	diff = (conv.precision > ft_strlen(str)) ? conv.width - ft_strlen(str) : (conv.precision >= 0) ? conv.width - conv.precision : conv.width -ft_strlen(str);
 	if (conv.flag == '-')
 	{
-		write(1, str, ft_strlen(str));
-		display_width(conv, str);
+		if (conv.precision >= 0 && conv.precision < ft_strlen(str))
+			write(1, str, conv.precision);
+		else
+			write(1, str, ft_strlen(str));
+		while (diff > 0)
+		{
+			write(1, &sp, 1);
+			diff --;
+		}
 	}
 	else
 	{
-		display_width(conv, str);
-		write(1, str, ft_strlen(str));
+		while (diff > 0)
+		{
+			write(1, &sp, 1);
+			diff --;
+		}
+		if (conv.precision >= 0 && conv.precision < ft_strlen(str))
+			write(1, str, conv.precision);
+		else
+			write(1, str, ft_strlen(str));
 	}
+	//		display_width(conv, str);
 }
 
 void	ft_apply_width_di(va_list ap, t_conversion conv)

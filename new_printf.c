@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:38:57 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/29 22:01:41 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/29 22:48:36 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int		main(void)
 	str = "hello le test";
 	display_str("\ntest printf ==  %-*.46c helptest\n", 5, c);
 	display_str("ok ok test %-*.46c over\n", 3, c);
-	display_str("on teste maintenant avec str = %30s, voila\n", str);
+	display_str("on teste maintenant avec str = |%-15.5s|, voila\n", str);
 	display_str("et avec un nombre d = %d !!\n", 45);
 	display_str("puis i = %i ?!\n", 95);
 	display_str("puis percent = %% ?!\n");

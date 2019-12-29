@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:38:57 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/28 21:26:57 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/29 18:37:53 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,35 +59,6 @@ t_conversion	get_conversion(const char *str, t_conversion conv, va_list ap)
 	return conv;
 }
 
-void		display_width(t_conversion conv, char *s)
-{
-	int i;
-	char sp = ' ';
-
-	int add_sp = conv.width - ft_strlen(s);
-	i = 0;
-	while (add_sp > 0)
-	{
-		write(1, &sp, 1);
-		add_sp --;
-	}
-}
-
-void	display_width_z(t_conversion conv, char *s)
-{
-	int i;
-	char z = '0';
-
-	int add_z = conv.width - ft_strlen(s);
-	i = 0;
-	while (add_z > 0)
-	{
-		write(1, &z, 1);
-		add_z --;
-	}
-}
-
-
 int		display_precision(t_conversion conv, char *s)
 {
 	int i;
@@ -103,14 +74,6 @@ int		display_precision(t_conversion conv, char *s)
 	}
 	return (0);
 }
-
-/*
-void	apply_flags(const char *str, t_conversion conv, va_list)
-{
-	display_width();
-	display_precision();
-}
-*/
 
 char	display_str(const char *format, ...)
 {
@@ -154,16 +117,16 @@ int		main(void)
 	display_str("et avec un nombre d = %d !!\n", 45);
 	display_str("puis i = %i ?!\n", 95);
 	display_str("puis percent = %% ?!\n");
-	display_str("puis hexa_minus = %10x hophop\n", 'j');
-	display_str("puis hexa_maj = %-15X ?!\n", 'B');
+	display_str("puis hexa_minus = %010x hophop\n", 'j');
+	display_str("puis hexa_maj = %015X ?!\n", 'B');
 	display_str("adresse de l'arg  = %20p okkkkk\n", &str);
 	display_str("puis u = %u ?!\n", 95);
 	display_str("\n\n--%*c...\n", 15, 'z');
-	display_str("\n\n--%-*d...\n", 6, 8);
+	display_str("\n\n||%0*d...\n", 6, -8);
 	display_str("--%05d--\n", 22); // res = --   22-994770792-- (check apply_z)
-	dprintf(1,"--%0.2d--\n", 32);
+	dprintf(1,"--%05d--\n", 32);
 	dprintf(1,"--%0d--\n", 42);
 	display_str("--%5d--\n", 52);
-	dprintf(1,"--%-.5d--\n", 62);
+	dprintf(1,"--%5s--\n", "AY");
 	dprintf(1, "\nouss: **%10.8d**\n", -1000);
 }

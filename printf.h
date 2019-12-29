@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 16:58:16 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/28 21:16:54 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/29 18:17:03 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,10 @@ void	ft_type_p(va_list ap, t_conversion conv);
 void	apply_type(t_conversion conv, va_list ap);
 t_conversion	get_conversion(const char *str, t_conversion conv, va_list ap);
 void	display_width(t_conversion conv, char *s);
-void	display_width_z(t_conversion conv, char *s);
-void	ft_apply_minus_c(va_list ap, t_conversion conv);
-void	ft_apply_minus_s(va_list ap, t_conversion conv);
-void	ft_apply_minus_di(va_list ap, t_conversion conv);
-void	ft_apply_minus_uxX(va_list ap, t_conversion conv);
-void	ft_apply_minus_p(va_list ap, t_conversion conv);
-void	ft_apply_zero(va_list ap, t_conversion conv);
+void	ft_apply_width_c(va_list ap, t_conversion conv);
+void	ft_apply_width_s(va_list ap, t_conversion conv);
+void	ft_apply_width_di(va_list ap, t_conversion conv);
+void	ft_apply_width_uxX(va_list ap, t_conversion conv);
+void	ft_apply_width_p(va_list ap, t_conversion conv);
 
 #endif

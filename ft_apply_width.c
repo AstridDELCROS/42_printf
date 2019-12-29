@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 19:55:19 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/29 18:31:02 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/29 21:58:38 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,22 @@ void	ft_apply_width_di(va_list ap, t_conversion conv)
 {
 	int		d;
 	char	*s;
+	int		len;
 
 	d = va_arg(ap, int);
 	s = ft_itoa(d);
+	len = (conv.flag == '-') ? ft_strlen(s) - 1 : ft_strlen(s);
 	if (conv.flag == '-')
 	{
+		display_precision(conv, s);
 		write(1, s, ft_strlen(s));
 		display_width(conv, s);
 	}
 	else
 	{
 		display_width(conv, s);
-		if (conv.flag == '0' && s[0] == '-')
+		display_precision(conv, s);
+		if (s[0] == '-' && (conv.precision > len || conv.flag == '0'))
 			write(1, s + 1, ft_strlen(s) - 1);
 		else
 			write(1, s, ft_strlen(s));

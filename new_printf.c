@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:38:57 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/29 18:37:53 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/29 22:01:41 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,31 @@ t_conversion	get_conversion(const char *str, t_conversion conv, va_list ap)
 			conv.precision = va_arg(ap, int);
 			i++;
 		}
+		if (conv.precision >= 0 && conv.flag == '0')
+			conv.flag = 'v';
 	}
 	conv.type = str[i];
 	return conv;
 }
 
-int		display_precision(t_conversion conv, char *s)
+void		display_precision(t_conversion conv, char *s)
 {
-	int i;
-	int add_z;
-	char z = '0';
+	char	z = '0';
+	int		diff;
 
-	i = 0 ;
-	add_z = conv.precision - ft_strlen(s);
-	while (conv.precision > 0)
+	if (conv.precision < 0)
+		return ;
+	diff = conv.precision - ft_strlen(s);
+	if (s[0] == '-')
 	{
-		write(1, &z, add_z);
-		conv.precision --;
+		diff++;
+		write(1, "-", 1);
 	}
-	return (0);
+	while (diff > 0)
+	{
+		write(1, &z, 1);
+		diff --;
+	}
 }
 
 char	display_str(const char *format, ...)
@@ -122,11 +128,15 @@ int		main(void)
 	display_str("adresse de l'arg  = %20p okkkkk\n", &str);
 	display_str("puis u = %u ?!\n", 95);
 	display_str("\n\n--%*c...\n", 15, 'z');
-	display_str("\n\n||%0*d...\n", 6, -8);
-	display_str("--%05d--\n", 22); // res = --   22-994770792-- (check apply_z)
-	dprintf(1,"--%05d--\n", 32);
+	display_str("\n\n||%0i...\n", -8);
+	display_str("||%.5i--\n", 22); // res = --   22-994770792-- (check apply_z)
+	display_str("||%.5i--\n", -22); // res = --   22-994770792-- (check apply_z)
+	dprintf(1,"--%05.10d--\n", 32);
 	dprintf(1,"--%0d--\n", 42);
 	display_str("--%5d--\n", 52);
 	dprintf(1,"--%5s--\n", "AY");
-	dprintf(1, "\nouss: **%10.8d**\n", -1000);
+	dprintf(1, "\nouss:  **%08d**\n", -1000);
+	dprintf(1, "\nouss2: **%08d**\n", 1000);
+	dprintf(1, "||%.5i--\n", 22); // res = --   22-994770792-- (check apply_z)
+	dprintf(1, "||%015.*i--\n", -10, -2000002); 
 }

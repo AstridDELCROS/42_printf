@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 16:58:16 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/29 18:17:03 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/29 19:28:17 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ void	ft_apply_width_s(va_list ap, t_conversion conv);
 void	ft_apply_width_di(va_list ap, t_conversion conv);
 void	ft_apply_width_uxX(va_list ap, t_conversion conv);
 void	ft_apply_width_p(va_list ap, t_conversion conv);
-
+void	display_precision(t_conversion conv, char *s);
 #endif

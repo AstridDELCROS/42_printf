@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:38:57 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/30 14:59:56 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/30 21:27:26 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 t_conversion	get_conversion(const char *str, t_conversion conv, va_list ap)
 {
 	int i;
+	conv.flag = 'v';
+	conv.width = 0;
+	conv.precision = -1;
 
 	i = 1;
 	if (str[i] == '0' || str[i] == '-')
@@ -61,37 +64,39 @@ t_conversion	get_conversion(const char *str, t_conversion conv, va_list ap)
 	return conv;
 }
 
-void		display_precision(t_conversion conv, char *s)
+int		display_precision(t_conversion conv, char *s)
 {
 	char	z = '0';
 	int		diff;
+	int count_v;
 
 	if (conv.precision < 0)
-		return ;
+		return (0);
 	diff = conv.precision - ft_strlen(s);
-	if (s[0] == '-')
+	if (s[0] == '-' && diff + 1 > 0)
 	{
 		diff++;
 		write(1, "-", 1);
 	}
+	count_v = (diff < 0) ? 0 : diff;
 	while (diff > 0)
 	{
 		write(1, &z, 1);
 		diff --;
 	}
+	return (count_v);
 }
 
-char	display_str(const char *format, ...)
+int		ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	va_start(ap, format);
 	t_conversion conv;
 	int i;
+	int count_v;
 
 	i = 0;
-	conv.flag = 'v';
-	conv.width = 0;
-	conv.precision = -1;
+	count_v = 0;
 	if (!format)
 		return (-1);
 	while (format[i])
@@ -100,16 +105,18 @@ char	display_str(const char *format, ...)
 			write(1, &format[i], 1);
 		else
 		{
-			conv = get_conversion(&format[i], conv, ap);
-			apply_type(conv, ap);
+			conv = get_conversion(&format[i++], conv, ap);
+			count_v += apply_type(conv, ap) -1;
 			while (format[i] != conv.type)
 				i++;
 		}
 		i++;
+		count_v++;
 	}
-	return (0);
+	return (count_v);
 }
 
+/*
 int		main(void)
 {
 	char c;
@@ -117,27 +124,31 @@ int		main(void)
 
 	c = 'h';
 	str = "hello le test";
-	display_str("\ntest printf ==  %-*.46c helptest\n", 5, c);
-	display_str("ok ok test %-*.46c over\n", 3, c);
-	display_str("on teste maintenant avec str = |%-15.5s|, voila\n", str);
-	display_str("et avec un nombre d = %d !!\n", 45);
-	display_str("puis i = %i ?!\n", 95);
-	display_str("puis percent = %5c ?!\n", '5');
-	display_str("puis hexa_minus = %010x hophop\n", 'j');
-	display_str("puis hexa_maj = %015X ?!\n", 'B');
-	display_str("adresse de l'arg  = %20p okkkkk\n", &str);
-	display_str("puis u = %u ?!\n", 95);
-	display_str("\n\n--%*c...\n", 15, 'z');
-	display_str("\n\n||%0i...\n", -8);
-	display_str("||%.5i--\n", 22); // res = --   22-994770792-- (check apply_z)
-	display_str("||%.5i--\n", -22); // res = --   22-994770792-- (check apply_z)
+	ft_printf("\ntest printf ==  %-*.46c helptest\n", 5, c);
+	ft_printf("ok ok test %-*.46c over\n", 3, c);
+	ft_printf("on teste maintenant avec str = |%-15.5s|, voila\n", str);
+	ft_printf("et avec un nombre d = %d !!\n", 45);
+	ft_printf("puis i = %i ?!\n", 95);
+	ft_printf("puis percent = %5% ?!\n");
+	ft_printf("puis hexa_minus = %010x hophop\n", 'j');
+	ft_printf("puis hexa_maj = %015X ?!\n", 'B');
+	ft_printf("adresse de l'arg  = %20p okkkkk\n", &str);
+	ft_printf("puis u = %u ?!\n", 95);
+	ft_printf("\n\n--%*c...\n", 15, 'z');
+	ft_printf("\n\n||%0i...\n", -8);
+	ft_printf("||%.5i--\n", 22); // res = --   22-994770792-- (check apply_z)
+	ft_printf("||%.5i--\n", -22); // res = --   22-994770792-- (check apply_z)
 	dprintf(1,"--%05.10d--\n", 32);
 	dprintf(1,"--%0d--\n", 42);
-	display_str("--%5d--\n", 52);
+	ft_printf("--%5d--\n", 52);
 	dprintf(1,"--%5s--\n", "AY");
 	dprintf(1, "\nouss:  **%08d**\n", -1000);
 	dprintf(1, "\nouss2: **%08d**\n", 1000);
 	dprintf(1, "||%.5i--\n", 22); // res = --   22-994770792-- (check apply_z)
-	dprintf(1, "||%015.*i--\n", -10, -2000002); 
-	dprintf(1, "test %%");
+	dprintf(1, "||%015.*i--\n", -10, -2000002);
+	dprintf(1, "***** test ========== %5%  \n");
+	dprintf(1, "test ITOA === %s", ft_itoa_maj(0));
+	dprintf(1, "test ITOA === %s", ft_itoa(0));
+	dprintf(1, "test ITOA === %s", ft_itoa_min(0));
 }
+*/

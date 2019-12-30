@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_type_diu.c                                      :+:      :+:    :+:   */
+/*   ft_type_c.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/27 21:43:20 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/30 17:43:26 by adelcros         ###   ########.fr       */
+/*   Created: 2019/12/27 21:31:43 by adelcros          #+#    #+#             */
+/*   Updated: 2019/12/30 20:48:41 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int	ft_type_d(va_list ap, t_conversion conv)
+int		ft_type_c(va_list ap, t_conversion conv)
 {
-	return (ft_apply_width_di(ap, conv));
+	char c[2];
+
+	c[0] = va_arg(ap, int);
+	c[1] = '\0';
+	return (ft_apply_width_c(c, conv));
 }
 
-int		ft_type_i(va_list ap, t_conversion conv)
+int		ft_type_s(va_list ap, t_conversion conv)
 {
-	return (ft_apply_width_di(ap, conv));
+	return (ft_apply_width_s(ap, conv));
 }
 
-int		ft_type_u(va_list ap, t_conversion conv)
+int		ft_type_percent(t_conversion conv)
 {
-	return (ft_apply_width_uxX(ap, conv));
+	return (ft_apply_width_c("%", conv));
 }
-

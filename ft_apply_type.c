@@ -6,30 +6,31 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 21:49:36 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/29 19:01:22 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/30 19:06:52 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	apply_type(t_conversion conv, va_list ap)
+int	apply_type(t_conversion conv, va_list ap)
 {
 	if (conv.type == 'c')
-		ft_type_c(ap, conv);
+		return (ft_type_c(ap, conv));
 	if (conv.type == 's')
-		ft_type_s(ap, conv);
+		return (ft_type_s(ap, conv));
 	if (conv.type == 'd')
-		ft_type_d(ap, conv);
+		return (ft_type_d(ap, conv));
 	if (conv.type == 'i')
-		ft_type_i(ap, conv);
+		return (ft_type_i(ap, conv));
 	if (conv.type == 'u')
-		ft_type_u(ap, conv);
+		return (ft_type_u(ap, conv));
 	if (conv.type == '%')
-		ft_type_percent(ap);
+		return (ft_type_percent(conv));
 	if (conv.type == 'x')
-		ft_type_x(ap, conv);
+		return (ft_type_x(ap, conv));
 	if (conv.type == 'X')
-		ft_type_X(ap, conv);
+		return (ft_type_X(ap, conv));
 	if (conv.type == 'p')
-		ft_type_p(ap, conv);
+		return (ft_type_p(ap, conv));
+	return (0);
 }

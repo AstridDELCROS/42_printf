@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 19:55:19 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/30 22:16:07 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/31 00:44:06 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		ft_apply_width_c(char *c, t_conversion conv)
 {
+	conv.precision = -1;
 	if (conv.flag == '-')
 		return (write(1, c, 1) + display_width(conv, c));
 	else
@@ -66,6 +67,8 @@ int		ft_apply_width_di(va_list ap, t_conversion conv)
 	int		len;
 	int count_v;
 
+	if (conv.precision >= 0 && conv.flag == '0')
+		conv.flag = 'v';
 	count_v = 0;
 	d = va_arg(ap, int);
 	s = ft_itoa(d);
@@ -76,7 +79,7 @@ int		ft_apply_width_di(va_list ap, t_conversion conv)
 		return (display_precision(conv, s) + write(1, s, ft_strlen(s)) + display_width(conv, s));
 	else
 	{
-		count_v = display_width(conv, s) + display_precision(conv, s);
+		count_v += display_width(conv, s) + display_precision(conv, s);
 		if (s[0] == '-' && (conv.precision > len || conv.flag == '0'))
 			count_v += write(1, s + 1, ft_strlen(s) - 1);
 		else
@@ -90,6 +93,9 @@ int		ft_apply_width_uxX(va_list ap, t_conversion conv)
 	unsigned int X;
 	char *s;
 	int count_v;
+	
+	if (conv.precision >= 0 && conv.flag == '0')
+		conv.flag = 'v';
 	X = va_arg(ap, unsigned int);
 	if (conv.type == 'x')
 		s = ft_itoa_min(X);
@@ -98,7 +104,7 @@ int		ft_apply_width_uxX(va_list ap, t_conversion conv)
 	else
 		s = ft_itoa(X);
 	count_v = 0;
-	if (!conv.precision && X == '0')
+	if (!conv.precision && X == 0)
 	{
 		count_v += (display_width(conv, ""));
 	}

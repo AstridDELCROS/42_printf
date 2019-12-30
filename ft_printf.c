@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:38:57 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/30 22:16:29 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/31 00:43:26 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_conversion	get_conversion(const char *str, t_conversion conv, va_list ap)
 		while (str[i] == conv.flag)
 			i++;
 	}
-	if (str[i] >= '1' && str[i] <= '9')
+	if (str[i] >= '0' && str[i] <= '9')
 	{
 		conv.width = ft_atoi(&str[i]);
 		while (str[i] >= '0' && str[i] <= '9')
@@ -46,7 +46,8 @@ t_conversion	get_conversion(const char *str, t_conversion conv, va_list ap)
 	if (str[i] == '.')
 	{
 		i++;
-		if (str[i] >= '1' && str[i] <= '9')
+		conv.precision = 0;
+		if (str[i] >= '0' && str[i] <= '9')
 		{
 			conv.precision = ft_atoi(&str[i]);
 			while (str[i] >= '0' && str[i] <= '9')
@@ -57,8 +58,6 @@ t_conversion	get_conversion(const char *str, t_conversion conv, va_list ap)
 			conv.precision = va_arg(ap, int);
 			i++;
 		}
-		if (conv.precision >= 0 && conv.flag == '0')
-			conv.flag = 'v';
 	}
 	conv.type = str[i];
 	return conv;
@@ -72,16 +71,15 @@ int		display_precision(t_conversion conv, char *s)
 
 
 	if (conv.precision < 0)
-	{
 		return (0);
-	}
 	diff = conv.precision - ft_strlen(s);
+	count_v = (diff < 0) ? 0 : diff;
 	if (s[0] == '-' && diff + 1 > 0)
 	{
 		diff++;
-		write(1, "-", 1);
+		count_v++;
+		count_v += write(1, "-", 1);
 	}
-	count_v = (diff < 0) ? 0 : diff;
 	while (diff > 0)
 	{
 		write(1, &z, 1);
@@ -159,5 +157,9 @@ int		main(void)
 	dprintf(1, "test ITOA === %s", ft_itoa_maj(0));
 	dprintf(1, "test ITOA === %s", ft_itoa(0));
 	dprintf(1, "test ITOA === %s", ft_itoa_min(0));
+	ft_printf("\nHEY TEST === %.0i !!!\n", 0);
+	dprintf(1, "\n HEY TESTBIS %.0i", 0);
+	ft_printf("%.5d", -421);
 }
 */
+

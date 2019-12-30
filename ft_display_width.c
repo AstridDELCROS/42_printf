@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/29 16:58:10 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/30 21:00:20 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/31 00:23:16 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		display_width(t_conversion conv, char *s)
 	count_v = (diff < 0) ? 0 : diff;
 	sp = (conv.flag == '0') ? '0' : ' ';
 	if (conv.flag == '0' && s[0] == '-')
-		write(1, "-", 1);
+		count_v += write(1, "-", 1);
 	while (diff > 0)
 	{
 		write(1, &sp, 1);

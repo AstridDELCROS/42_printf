@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:38:57 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/30 21:27:26 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/30 22:16:29 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,11 @@ int		display_precision(t_conversion conv, char *s)
 	int		diff;
 	int count_v;
 
+
 	if (conv.precision < 0)
+	{
 		return (0);
+	}
 	diff = conv.precision - ft_strlen(s);
 	if (s[0] == '-' && diff + 1 > 0)
 	{
@@ -136,8 +139,14 @@ int		main(void)
 	ft_printf("puis u = %u ?!\n", 95);
 	ft_printf("\n\n--%*c...\n", 15, 'z');
 	ft_printf("\n\n||%0i...\n", -8);
-	ft_printf("||%.5i--\n", 22); // res = --   22-994770792-- (check apply_z)
 	ft_printf("||%.5i--\n", -22); // res = --   22-994770792-- (check apply_z)
+	ft_printf("||%.5i--\n", 22);
+	ft_printf("||%.5d--\n", 72);
+	ft_printf("||%.5d--\n", -72);
+	ft_printf("||%.5x--\n", 'f');
+	ft_printf("||%.5x--\n", 'f');
+    ft_printf("\nTEST ++++++===%.6x!!\n", 42);
+	dprintf(1, "\nTEST ++++++===%.6x!!\n", 42);
 	dprintf(1,"--%05.10d--\n", 32);
 	dprintf(1,"--%0d--\n", 42);
 	ft_printf("--%5d--\n", 52);

@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 19:55:19 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/30 21:26:24 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/30 22:16:07 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ int		ft_apply_width_uxX(va_list ap, t_conversion conv)
 		count_v += (display_width(conv, ""));
 	}
 	else if (conv.flag == '-')
-		count_v = write(1, s, ft_strlen(s)) + display_width(conv, s);
+		count_v = display_precision(conv, s) +  write(1, s, ft_strlen(s)) + display_width(conv, s);
 	else
-		count_v = display_width(conv, s) + write(1, s, ft_strlen(s));
+		count_v = display_width(conv, s) + display_precision(conv, s) + write(1, s, ft_strlen(s));
 	return (count_v);
 }
 

@@ -1,7 +1,8 @@
-#include <limits.h>
+#include "printf.h"
 int		main(void)
 {
-	char c;
+/*
+char c;
 	char *str;
 
 	c = 'h';
@@ -43,4 +44,8 @@ int		main(void)
 	ft_printf("%.*d\n", 4, -421);
 	ft_printf("%.*d\n", 10, -488353545);
 	dprintf(1, "%.*d\n", 0, INT_MAX);
+*/
+	int a;
+	ft_printf("%p\n", &a);
+	while (1) ;
 }

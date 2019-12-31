@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 16:58:16 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/31 01:03:38 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/31 02:30:32 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int		ft_type_X(va_list ap, t_conversion conv);
 int		ft_type_p(va_list ap, t_conversion conv);
 int		apply_type(t_conversion conv, va_list ap);
 t_conversion	get_conversion(const char *str, t_conversion conv, va_list ap);
+int				get_wid(const char *str, t_conversion *conv, va_list ap, int i);
+void			get_pre(const char *str, t_conversion *conv, va_list ap, int i);
 int		display_width(t_conversion conv, char *s);
 int		ft_apply_width_c(char c, t_conversion conv);
 int		ft_apply_width_s(va_list ap, t_conversion conv);

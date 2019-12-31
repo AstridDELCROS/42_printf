@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 19:55:19 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/31 01:03:06 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/31 01:24:05 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,29 @@ int		ft_apply_width_di(va_list ap, t_conversion conv)
 	count_v = 0;
 	d = va_arg(ap, int);
 	s = ft_itoa(d);
-	len = (conv.flag == '-') ? ft_strlen(s) - 1 : ft_strlen(s);
+	len = (s[0] == '-') ? ft_strlen(s) - 1 : ft_strlen(s);
 	if (!conv.precision && !d)
 		return (display_width(conv, ""));
 	else if (conv.flag == '-')
-		return (display_precision(conv, s) + write(1, s, ft_strlen(s)) + display_width(conv, s));
+	{
+		count_v += display_precision(conv, s);
+		if (s[0] == '-' && conv.precision > len)
+			count_v += write(1, s + 1, ft_strlen(s) - 1);
+		else
+			count_v += write(1, s, ft_strlen(s));
+		count_v += display_width(conv, s);
+	}
 	else
 	{
 		count_v += display_width(conv, s) + display_precision(conv, s);
 		if (s[0] == '-' && (conv.precision > len || conv.flag == '0'))
+		{
 			count_v += write(1, s + 1, ft_strlen(s) - 1);
+		}
 		else
+		{
 			count_v += write(1, s, ft_strlen(s));
+		}
 	}
 	return (count_v);
 }

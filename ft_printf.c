@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 14:38:57 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/31 00:43:26 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/31 01:26:44 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int		ft_printf(const char *format, ...)
 	return (count_v);
 }
 
-/*
+#include <limits.h>
 int		main(void)
 {
 	char c;
@@ -159,7 +159,8 @@ int		main(void)
 	dprintf(1, "test ITOA === %s", ft_itoa_min(0));
 	ft_printf("\nHEY TEST === %.0i !!!\n", 0);
 	dprintf(1, "\n HEY TESTBIS %.0i", 0);
-	ft_printf("%.5d", -421);
+	ft_printf("%.*d\n", 4, -421);
+	ft_printf("%.*d\n", 10, -488353545);
+	dprintf(1, "%.*d\n", 0, INT_MAX);
 }
-*/
 

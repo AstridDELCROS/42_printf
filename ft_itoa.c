@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:28:51 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/31 14:56:48 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/31 15:21:26 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int	ft_sizecalc_hexa(long long n)
 	return (res);
 }
 
-
 char		*ft_itoa(long long n)
 {
 	long long		num;
@@ -52,7 +51,7 @@ char		*ft_itoa(long long n)
 	res[size--] = '\0';
 	while (size >= 0)
 	{
-		res[size] = num % 10 + 48; // base[num % strlen(base)]
+		res[size] = num % 10 + 48;
 		num = num / 10;
 		size--;
 	}
@@ -63,9 +62,10 @@ char		*ft_itoa(long long n)
 
 char		*ft_itoa_min(long long n)
 {
-	long long		num;
-	char			*res;
-	int				size;
+	long long	num;
+	char		*res;
+	int			size;
+	int			tmp;
 
 	size = ft_sizecalc_hexa(n);
 	num = n;
@@ -74,7 +74,7 @@ char		*ft_itoa_min(long long n)
 	res[size--] = '\0';
 	while (size >= 0)
 	{
-		int tmp = num % 16;
+		tmp = num % 16;
 		num = num / 16;
 		if (tmp < 10)
 			res[size] = tmp + 48;
@@ -87,9 +87,10 @@ char		*ft_itoa_min(long long n)
 
 char		*ft_itoa_maj(long long n)
 {
-	long long		num;
-	char			*res;
-	int				size;
+	long long	num;
+	char		*res;
+	int			size;
+	int			tmp;
 
 	size = ft_sizecalc_hexa(n);
 	num = n;
@@ -98,7 +99,7 @@ char		*ft_itoa_maj(long long n)
 	res[size--] = '\0';
 	while (size >= 0)
 	{
-		int tmp = num % 16;
+		tmp = num % 16;
 		num = num / 16;
 		if (tmp < 10)
 			res[size] = tmp + 48;
@@ -108,30 +109,3 @@ char		*ft_itoa_maj(long long n)
 	}
 	return (res);
 }
-
-/*
-char		*ft_itoa(int n, char *base)
-{
-	unsigned int	num;
-	char			*res;
-	int				size;
-	int				b;
-
-	num = (n < 0 ? -n : n);
-	size = ft_sizecalc(n);
-	b = strlen(base);
-	if (!(res = (char *)malloc(sizeof(char) * (size + 1))))
-		return (NULL);
-	res[size--] = '\0';
-	while (size >= 0)
-	{
-		res[size] = base[num % b];
-		num = num / b;
-		size--;
-	}
-	if (n < 0)
-		res[0] = '-';
-	return (res);
-}
-*/
-

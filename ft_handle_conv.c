@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/31 14:38:16 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/31 14:56:38 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/31 15:13:29 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int				display_precision(t_conversion conv, char *s)
 	return (count_v);
 }
 
-int		display_width(t_conversion conv, char *s)
+int				display_width(t_conversion conv, char *s)
 {
 	char	sp;
 	int		len;
@@ -105,7 +105,8 @@ int		display_width(t_conversion conv, char *s)
 	sp = (conv.flag == '0') ? '0' : ' ';
 	len = (s[0] == '-') ? ft_strlen(s) - 1 : ft_strlen(s);
 	if (conv.precision > len)
-		diff = (s[0] == '-') ? conv.width - conv.precision - 1 : conv.width - conv.precision;
+		diff = (s[0] == '-') ? conv.width - conv.precision - 1 : conv.width -
+			conv.precision;
 	else
 		diff = conv.width - ft_strlen(s);
 	count_v = (diff < 0) ? 0 : diff;

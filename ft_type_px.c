@@ -1,42 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_type_diu.c                                      :+:      :+:    :+:   */
+/*   ft_type_pxX.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/27 21:43:20 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/31 15:22:39 by adelcros         ###   ########.fr       */
+/*   Created: 2019/12/27 21:45:43 by adelcros          #+#    #+#             */
+/*   Updated: 2019/12/31 15:23:12 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_type_d(va_list ap, t_conversion conv)
+int		ft_type_p(va_list ap, t_conversion conv)
+{
+	return (ft_convert_p(ap, conv));
+}
+
+int		ft_type_x(va_list ap, t_conversion conv)
 {
 	char	**s;
 	int		res;
 
 	s = malloc(sizeof(char *));
-	res = ft_convert_di(ap, conv, s);
+	res = ft_convert_ux(ap, conv, s);
 	free(*s);
 	free(s);
 	return (res);
 }
 
-int		ft_type_i(va_list ap, t_conversion conv)
-{
-	char	**s;
-	int		res;
-
-	s = malloc(sizeof(char *));
-	res = ft_convert_di(ap, conv, s);
-	free(*s);
-	free(s);
-	return (res);
-}
-
-int		ft_type_u(va_list ap, t_conversion conv)
+int		ft_type_xmaj(va_list ap, t_conversion conv)
 {
 	char	**s;
 	int		res;

@@ -6,7 +6,7 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 21:49:36 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/30 19:06:52 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/31 02:38:25 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	apply_type(t_conversion conv, va_list ap)
 	if (conv.type == 'x')
 		return (ft_type_x(ap, conv));
 	if (conv.type == 'X')
-		return (ft_type_X(ap, conv));
+		return (ft_type_xmaj(ap, conv));
 	if (conv.type == 'p')
 		return (ft_type_p(ap, conv));
 	return (0);

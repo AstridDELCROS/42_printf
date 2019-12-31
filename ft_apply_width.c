@@ -6,19 +6,33 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 19:55:19 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/31 00:44:06 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/31 01:03:06 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		ft_apply_width_c(char *c, t_conversion conv)
+int		ft_apply_width_c(char c, t_conversion conv)
 {
+	int		count_v;
+	char	sp;
+
+	count_v = 0;
 	conv.precision = -1;
+	sp = (conv.flag == '0') ? '0' : ' ';
 	if (conv.flag == '-')
-		return (write(1, c, 1) + display_width(conv, c));
+	{
+		count_v += write(1, &c, 1);
+		while (--conv.width > 0)
+			count_v += write(1, &sp, 1);
+	}
 	else
-		return (display_width(conv, c) + write(1, c, 1));
+	{
+		while (--conv.width > 0)
+			count_v += write(1, &sp, 1);
+		count_v += write(1, &c, 1);
+	}
+	return (count_v);
 }
 
 int		ft_apply_width_s(va_list ap, t_conversion conv)

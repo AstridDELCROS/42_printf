@@ -6,13 +6,13 @@
 /*   By: adelcros <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/27 21:49:36 by adelcros          #+#    #+#             */
-/*   Updated: 2019/12/31 02:38:25 by adelcros         ###   ########.fr       */
+/*   Updated: 2019/12/31 15:09:04 by adelcros         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
-int	apply_type(t_conversion conv, va_list ap)
+int	ft_apply_type(t_conversion conv, va_list ap)
 {
 	if (conv.type == 'c')
 		return (ft_type_c(ap, conv));
